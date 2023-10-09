@@ -1,24 +1,16 @@
 package com.api_senai.api.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.time.LocalDate;
 
-@Data
-@Entity
-@EqualsAndHashCode(callSuper = false)
-@Table(name = "clientes")
-public class Cliente extends Pessoa{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Cliente {
+
     private Long id;
+    private String nome;
+    private String cpf;
+    private LocalDate dataNascimento;
+    private String telefone;
+    private String email;
     private String login;
     private String senha;
-    @OneToOne
     private Endereco endereco;
 }
