@@ -11,7 +11,15 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Data
+@Entity
+@Table(name = "enderecos")
 public class Endereco {
+    @Id
     private Long id;
     private String cep;
     private String logradouro;
