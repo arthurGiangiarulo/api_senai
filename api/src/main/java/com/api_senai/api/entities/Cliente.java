@@ -34,3 +34,4 @@ public class Cliente extends Pessoa{
     @JoinColumn(name = "endereco", foreignKey = @ForeignKey(name = "endereco_fkey"))
     private Endereco endereco;
 }
+
