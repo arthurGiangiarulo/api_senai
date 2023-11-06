@@ -32,16 +32,15 @@ public class ClienteService {
     }
     public Cliente updateCliente(Long id, Cliente clienteAtualizado){
         
-        Cliente cliente = saveCliente(clienteAtualizado);
+        Cliente clienteExistente = getClienteById(id);
+        // clienteExistente.setAllAtributos(clienteAtualizado);
+        saveCliente(clienteExistente);
         
-        return cliente;
+        return clienteExistente;
     }
     public Cliente deleteCliente(Long id){
 
-        Cliente cliente = getClienteById(id);
         clienteRepository.deleteById(id);
-        Cliente clienteDeletado = getClienteById(id);
-
-        return clienteDeletado;
+        return getClienteById(id);
     }
 }

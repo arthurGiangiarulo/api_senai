@@ -29,39 +29,46 @@ public class ClienteController {
         
         List<Cliente> clientes = clienteService.getAllClientes();
 
-        return ResponseEntity.ok(clientes);
+        if(clientes.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(clientes, HttpStatus.OK);
+        }
     }
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getClientesById(@PathVariable Long id){
         
         Cliente cliente = clienteService.getClienteById(id);
 
-        if (cliente != null){
+        if (cliente != null) {
             return new ResponseEntity<>(cliente, HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
         }
-
     }
     @PostMapping
     public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente novoCliente){
 
         Cliente cliente = clienteService.saveCliente(novoCliente);
-        return ResponseEntity.ok(cliente);
+        return new ResponseEntity<>(cliente, HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> updateCliente (@RequestBody Cliente clienteAtualizado, @PathVariable Long id) {
 
         Cliente cliente = clienteService.updateCliente(id, clienteAtualizado);
-        return ResponseEntity.ok(cliente);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id){
 
-        Cliente cliente = clienteService.deleteCliente(id);
+        Cliente cliente = clienteService.getClienteById(id);
         
-        return ResponseEntity.ok(cliente);
+        if (cliente != null) {
+            clienteService.deleteCliente(id);
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
+        }
     }
 
 }
